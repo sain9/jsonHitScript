@@ -26,8 +26,8 @@ async function createTableAndInsertData(tableName, jsonData) {
         `;
 
         // Execute the table creation query
-        await client.query(createTableQuery);
-        console.log(`Table created successfully for ${tableName}`);
+        const promiseArr = []
+        promiseArr.push(client.query(createTableQuery))
 
         // Create the INSERT query
         const insertQuery = `
@@ -36,7 +36,9 @@ async function createTableAndInsertData(tableName, jsonData) {
         `;
 
         // Execute the INSERT query
-        await client.query(insertQuery);
+        promiseArr.push(client.query(insertQuery))
+        await Promise.all(promiseArr)
+        console.log(`Table created successfully for ${tableName}`);
         console.log(`Data insert successful for ${tableName}`);
     } catch (err) {
         console.error('Error processing data:', err.message);

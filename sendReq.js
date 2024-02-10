@@ -11,21 +11,16 @@ async function sendDataFromJsonFile(fileName) {
         const filePath = path.join(jsonFilesDirectory, fileName);
         const jsonData = JSON.parse(fs.readFileSync(filePath));
 
-        // Create and connect the PostgreSQL client
-        const client = new (require('pg').Client)({
-            user: 'hussain',
-            host: 'localhost',
-            database: 'test',
-            password: 'password',
-            port: 5432,
-        });
-
-        await client.connect();
-
-        const response = await axios.post(endpointUrl, {
+        const {error, data} = await axios.post(endpointUrl, {
             tableName: path.parse(fileName).name,
             jsonData: jsonData
         });
+        if(error) {
+            console.log(`Error Details:`, error);
+        }
+        if(data){
+            console.log(`Response Details:`, data);
+        }
 
         console.log(`Response for ${fileName}:`);
         console.log(`Request Payload:`, {
@@ -33,11 +28,10 @@ async function sendDataFromJsonFile(fileName) {
             jsonData: jsonData
 });
 // console.log(`Response Message:`, response.data.message);
-// console.log(`Response Details:`, response);
 console.log('\nData processed successfully!');
 
         // Disconnect the client after the request is completed
-        await client.end();
+    await client.end();
     } catch (error) {
         console.error(`Error sending data for ${fileName}:`, error.message);
     }
