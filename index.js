@@ -1,7 +1,5 @@
 const express = require('express');
 const { Client } = require('pg');
-const fs = require('fs');
-const path = require('path');
 
 const app = express();
 const port = 9001;
