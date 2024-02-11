@@ -1,0 +1,35 @@
+
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: hussain
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: test
+    ports:
+      - "5432:5432"
+    networks:
+      - pg_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: officialhussain14@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    ports:
+      - "5050:80"
+    networks:
+      - pg_network
+    depends_on:
+      - postgres
+
+networks:
+  pg_network:
+    driver: bridge
+
+volumes:
+  postgres_data:

@@ -144,7 +144,7 @@ main();
 
 
 #########################################################################################################################################
-
+u = usename d = databse 
 ## start psql
 > sudo -i -u hussain 
 > psql -d test -U hussain 
@@ -157,3 +157,9 @@ test=# \d+ my_table
 
 ## to see table in excel format (replace my_table with your table name)
 SELECT * from my_table;
+
+# check what's running on 5432
+    $ lsof -i tcp:5432
+
+# kill process on port 5432
+    $ kill -9 <pid>
