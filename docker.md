@@ -85,3 +85,8 @@ $ docker network ls
   2. docker exec -it <container-name> psql -U <username> <database-name>
           e.g: docker exec -it ps-sql-postgres-1 psql -U hussain test
      psql terminal is available via docker
+
+
+# Start daemon
+  navigate to folder with docker-compose.yml file
+  $ docker compose up -d
